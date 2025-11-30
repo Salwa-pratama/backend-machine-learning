@@ -49,7 +49,7 @@ def predict_naive():
         fitur_scaled = scaler.transform(fitur)
 
         # prediksi
-        pred = model.predict(fitur_scaled)[0]
+        pred = model.predict(fitur)[0]
 
         # akurasi
         try:
