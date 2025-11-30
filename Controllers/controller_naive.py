@@ -80,9 +80,9 @@ def predict_naive():
             "prediksi": int(pred),
             "kelas": f"Wine class {kategori}",
             "akurasi_model": acc_value,
-            "precision": float(metrics["precision"]),
-            "recall": float(metrics["recall"]),
-            "f1_score": float(metrics["f1_score"]),
+            "precision": f"{round(metrics['precision'] * 100)}%",
+            "recall": f"{round(metrics['recall'] * 100)}%",
+            "f1_score": f"{round(metrics['f1_score'] * 100)}%",
         })
 
     except Exception as e:
