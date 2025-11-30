@@ -75,7 +75,7 @@ def predict_id3():
                 "status": "success",
                 "prediksi": int(pred),
                 "kelas": f"Wine class {kategori}",
-                "akurasi_model": acc_value,
+                "akurasi_model": f"{round(acc_value * 100)}%",
                 "precision": f"{round(metrics['precision'] * 100)}%",
                 "recall": f"{round(metrics['recall'] * 100)}%",
                 "f1_score": f"{round(metrics['f1_score'] * 100)}%",
