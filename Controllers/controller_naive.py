@@ -79,7 +79,7 @@ def predict_naive():
             "status": "success",
             "prediksi": int(pred),
             "kelas": f"Wine class {kategori}",
-            "akurasi_model": f"{round(acc_value * 100)}%",
+            "akurasi_model": acc_value,
             "precision": f"{round(metrics['precision'] * 100)}%",
             "recall": f"{round(metrics['recall'] * 100)}%",
             "f1_score": f"{round(metrics['f1_score'] * 100)}%",
