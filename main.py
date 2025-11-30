@@ -15,5 +15,5 @@ app.register_blueprint(naive_route, url_prefix="/api")
 
 app.register_blueprint(id3_route, url_prefix="/api")
 
-# if __name__ == "__main__":
-#     app.run(host="0.0.0.0", port=5000, debug=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)

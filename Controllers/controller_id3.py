@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 import numpy as np
+import pandas as pd
 import joblib
 import os
 
@@ -10,13 +11,23 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 MODEL_PATH = os.path.join(BASE_DIR, "..", "machineLearning", "Model", "ID3Wine.pkl")
 ACCURACY_PATH = os.path.join(BASE_DIR, "..", "machineLearning", "Model", "ACCID3Wine.pkl")
+METRICS_PATH = os.path.normpath(os.path.join(BASE_DIR, "..", "machineLearning", "Model", "Evaluation_ID3.pkl"))
+
 
 MODEL_PATH = os.path.normpath(MODEL_PATH)
 ACCURACY_PATH = os.path.normpath(ACCURACY_PATH)
 
 # ===== LOAD MODEL & ACCURACY =====
-model = joblib.load(MODEL_PATH)
-accuracy = joblib.load(ACCURACY_PATH)
+
+try:
+    model = joblib.load(MODEL_PATH)
+    accuracy = joblib.load(ACCURACY_PATH)
+    # Metrics
+    metrics = joblib.load(METRICS_PATH)
+except Exception as e:
+    raise Exception(f"Gagal load model NB: {e}")
+
+
 
 @id3_route.route("/predict-id3", methods=["POST"])
 def predict_id3():
@@ -24,19 +35,19 @@ def predict_id3():
         data = request.json
 
         # fitur sesuai urutan training ID3 kamu
-        fitur = np.array([
-            data["fixed_acidity"],
-            data["volatile_acidity"],
-            data["citric_acid"],
-            data["residual_sugar"],
-            data["chlorides"],
-            data["free_sulfur_dioxide"],
-            data["total_sulfur_dioxide"],
-            data["density"],
-            data["ph"],
-            data["sulphates"],
-            data["alcohol"]
-        ]).reshape(1, -1)
+        fitur = pd.DataFrame([{
+            "fixed acidity": data["fixed_acidity"],
+            "volatile acidity": data["volatile_acidity"],
+            "citric acid": data["citric_acid"],
+            "residual sugar": data["residual_sugar"],
+            "chlorides": data["chlorides"],
+            "free sulfur dioxide": data["free_sulfur_dioxide"],
+            "total sulfur dioxide": data["total_sulfur_dioxide"],
+            "density": data["density"],
+            "pH": data["ph"],
+            "sulphates": data["sulphates"],
+            "alcohol": data["alcohol"]
+        }])
 
         # ===== prediksi =====
         pred = model.predict(fitur)[0]
@@ -52,7 +63,10 @@ def predict_id3():
             "status": "success",
             "prediksi": int(pred),
             "kelas": f"Wine class {pred}",
-            "akurasi_model": acc_value
+            "akurasi_model": acc_value,
+            "precision": metrics["precision"],
+            "recall": metrics["recall"],
+            "f1_score": metrics["f1_score"],
         })
 
     except Exception as e:
