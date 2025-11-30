@@ -52,6 +52,18 @@ def predict_id3():
         # ===== prediksi =====
         pred = model.predict(fitur)[0]
 
+        def predCategorical(q):
+            if q <= 5:
+                return "low"
+            elif q == 6:
+                return "medium"
+            else:
+                return "high"
+
+
+        kategori = predCategorical(pred)
+
+
         # pastikan akurasi bisa dijadikan float
         try:
             acc_value = float(accuracy)
@@ -59,15 +71,15 @@ def predict_id3():
             acc_value = accuracy.get("accuracy") if isinstance(accuracy, dict) else None
 
         return jsonify({
-            "kode": 200,
-            "status": "success",
-            "prediksi": int(pred),
-            "kelas": f"Wine class {pred}",
-            "akurasi_model": acc_value,
-            "precision": metrics["precision"],
-            "recall": metrics["recall"],
-            "f1_score": metrics["f1_score"],
-        })
+                "kode": 200,
+                "status": "success",
+                "prediksi": int(pred),
+                "kelas": f"Wine class {kategori}",
+                "akurasi_model": acc_value,
+                "precision": float(metrics["precision"]),
+                "recall": float(metrics["recall"]),
+                "f1_score": float(metrics["f1_score"]),
+            })
 
     except Exception as e:
         return jsonify({"kode": 500, "error": str(e)})
