@@ -44,7 +44,7 @@ def predict_id3():
             "free sulfur dioxide": data["free_sulfur_dioxide"],
             "total sulfur dioxide": data["total_sulfur_dioxide"],
             "density": data["density"],
-            "pH": data["ph"],
+            "ph": data["ph"],
             "sulphates": data["sulphates"],
             "alcohol": data["alcohol"]
         }])
