@@ -5,14 +5,27 @@ import os
 
 naive_route = Blueprint("naive_route", __name__)
 
-MODEL_PATH = os.path.join("machineLearning", "Model", "NaiveBayesWine.pkl")
-SCALER_PATH = os.path.join("machineLearning", "Model", "ScalerWinenb.pkl")
-ACCURACY_PATH = os.path.join("machineLearning", "Model", "AccuracyWinenb.pkl")
+# ====== FIX PATH ABSOLUTE UNTUK VERCEL ======
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-model = joblib.load(MODEL_PATH)
-scaler = joblib.load(SCALER_PATH)
-accuracy = joblib.load(ACCURACY_PATH)
+MODEL_PATH = os.path.normpath(os.path.join(BASE_DIR, "..", "machineLearning", "Model", "NaiveBayesWine.pkl"))
+SCALER_PATH = os.path.normpath(os.path.join(BASE_DIR, "..", "machineLearning", "Model", "ScalerWinenb.pkl"))
+ACCURACY_PATH = os.path.normpath(os.path.join(BASE_DIR, "..", "machineLearning", "Model", "AccuracyWinenb.pkl"))
 
+# Debugging optional:
+# print("MODEL_PATH:", MODEL_PATH)
+# print("SCALER_PATH:", SCALER_PATH)
+# print("ACCURACY_PATH:", ACCURACY_PATH)
+
+# ====== LOAD MODEL & SCALER & ACCURACY ======
+try:
+    model = joblib.load(MODEL_PATH)
+    scaler = joblib.load(SCALER_PATH)
+    accuracy = joblib.load(ACCURACY_PATH)
+except Exception as e:
+    raise Exception(f"Gagal load model NB: {e}")
+
+# ====== ROUTE ======
 @naive_route.route("/predict-nb", methods=["POST"])
 def predict_naive():
     try:
@@ -38,7 +51,7 @@ def predict_naive():
         # prediksi
         pred = model.predict(fitur_scaled)[0]
 
-        # amanin akurasi
+        # akurasi
         try:
             acc_value = float(accuracy)
         except:

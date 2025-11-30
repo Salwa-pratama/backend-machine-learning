@@ -6,8 +6,13 @@ import os
 id3_route = Blueprint("id3_route", __name__)
 
 # ===== PATH MODEL =====
-MODEL_PATH = os.path.join("machineLearning", "Model", "ID3Wine.pkl")
-ACCURACY_PATH = os.path.join("machineLearning", "Model", "ACCID3Wine.pkl")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+MODEL_PATH = os.path.join(BASE_DIR, "..", "machineLearning", "Model", "ID3Wine.pkl")
+ACCURACY_PATH = os.path.join(BASE_DIR, "..", "machineLearning", "Model", "ACCID3Wine.pkl")
+
+MODEL_PATH = os.path.normpath(MODEL_PATH)
+ACCURACY_PATH = os.path.normpath(ACCURACY_PATH)
 
 # ===== LOAD MODEL & ACCURACY =====
 model = joblib.load(MODEL_PATH)
