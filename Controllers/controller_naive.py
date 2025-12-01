@@ -75,15 +75,15 @@ def predict_naive():
 
 
         return jsonify({
-            "kode": 200,
-            "status": "success",
-            "prediksi": int(pred),
-            "kelas": f"Wine class {kategori}",
-            "akurasi_model": acc_value,
-            "precision": f"{round(metrics['precision'] * 100)}%",
-            "recall": f"{round(metrics['recall'] * 100)}%",
-            "f1_score": f"{round(metrics['f1_score'] * 100)}%",
-        })
+                "kode": 200,
+                "status": "success",
+                "prediksi": int(pred),
+                "kelas": f"Wine class {kategori}",
+                "akurasi_model":acc_value,
+                "precision": f"{round(metrics['precision'],4)}",
+                "recall": f"{round(metrics['recall'],4)}",
+                "f1_score": f"{round(metrics['f1_score'],4)}",
+            })
 
     except Exception as e:
         return jsonify({"kode": 500, "error": str(e)})
