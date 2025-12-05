@@ -1,5 +1,4 @@
 from flask import Blueprint, request, jsonify
-import numpy as np
 import joblib
 import os
 import pandas as pd

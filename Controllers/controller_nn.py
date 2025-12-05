@@ -1,5 +1,4 @@
 from flask import Blueprint, request, jsonify
-import numpy as np
 import joblib
 import os
 import pandas as pd
@@ -21,6 +20,14 @@ try:
     scaler = joblib.load(SCALER_PATH)
 except Exception as e:
     raise Exception(f"Gagal load model RF: {e}")
+
+@neural_network_route.route("/predict-nn-test", methods=["GET"])
+def test_nn ():
+    return jsonify({
+        "kode" : 200,
+        "status" : "hadir",
+        "message" : "koneksi API Berhasil"
+    })
 
 
 # KITA BIKIN ROUTINGAN

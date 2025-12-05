@@ -11,7 +11,7 @@ CORS(app)
 
 @app.route("/")
 def home():
-    return {"message": "Wine ML API Connected!"}
+    return {"message": "Machine Learning API is ready"}
 
 # Naive Bayes x Wine Dataset
 app.register_blueprint(naive_route, url_prefix="/api")
