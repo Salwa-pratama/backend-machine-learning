@@ -54,8 +54,8 @@ def predict_rf():
             "performa_model" : {
                 "acc" : acc_value,
                 "precision" : f"{round(evaluation['precision'],4)}",
-                "recall" : f"{round(evaluation['precision'],4)}",
-                "f1_score": f"{round(evaluation['precision'],4)}"
+                "recall" : f"{round(evaluation['recall'],4)}",
+                "f1_score": f"{round(evaluation['f1_score'],4)}"
             }
         })
     except Exception as e:

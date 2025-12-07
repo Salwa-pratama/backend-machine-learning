@@ -9,11 +9,13 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 MODEL_PATH = os.path.normpath(os.path.join(BASE_DIR, "..", "machineLearning", "Model","xgboost", "xgboost_model.pkl"))
 ACC_PATH = os.path.normpath(os.path.join(BASE_DIR, "..", "machineLearning", "Model","xgboost", "ACCXGBOOST.pkl"))
+EVALUATION_PATH = os.path.normpath(os.path.join(BASE_DIR, "..", "machineLearning", "Model","xgboost", "Evaluation_xgboost.pkl"))
 
 # LOAD MODEL
 try:
     model = joblib.load(MODEL_PATH)
     acc = joblib.load(ACC_PATH)
+    metrics = joblib.load(EVALUATION_PATH)
 except Exception as e:
     raise Exception(f"Gagal load model XGBoost: {e}")
 
@@ -70,6 +72,9 @@ def predict_xgb():  # ✅ Nama fungsi disesuaikan
             "prediksi": kategorical,
             "performa_model": {
                 "acc": acc_value,
+                "precision" : f"{round(metrics['precision'],4)}",
+                "recall" : f"{round(metrics['recall'],4)}",
+                "f1_score": f"{round(metrics['f1_score'],4)}"
             }
         })
 
