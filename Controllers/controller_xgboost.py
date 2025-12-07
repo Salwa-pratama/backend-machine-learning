@@ -72,9 +72,9 @@ def predict_xgb():  # ✅ Nama fungsi disesuaikan
             "prediksi": kategorical,
             "performa_model": {
                 "acc": acc_value,
-                "precision" : f"{round(metrics['precision'],4)}",
-                "recall" : f"{round(metrics['recall'],4)}",
-                "f1_score": f"{round(metrics['f1_score'],4)}"
+                "precision" : f"{round(float(metrics.get("precision", 0)), 4)}",
+                "recall" : f"{round(float(metrics.get("recall", 0)), 4)}",
+                "f1_score": f"{round(float(metrics.get("f1_score", 0)), 4)}"
             }
         })
 
