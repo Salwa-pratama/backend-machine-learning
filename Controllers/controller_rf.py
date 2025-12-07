@@ -53,9 +53,9 @@ def predict_rf():
             "prediksi" : kategorical,
             "performa_model" : {
                 "acc" : acc_value,
-                "precision" : f"{round(evaluation['precision'],4)}",
-                "recall" : f"{round(evaluation['recall'],4)}",
-                "f1_score": f"{round(evaluation['f1_score'],4)}"
+                "precision" : f"{round(float(evaluation.get("precision", 0)), 4)}",
+                "recall" : f"{round(float(evaluation.get("recall", 0)), 4)}",
+                "f1_score": f"{round(float(evaluation.get("f1_score", 0)), 4)}"
             }
         })
     except Exception as e:

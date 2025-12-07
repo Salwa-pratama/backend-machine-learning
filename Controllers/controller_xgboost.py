@@ -46,7 +46,7 @@ def predict_xgb():  # ✅ Nama fungsi disesuaikan
                     "error": f"Field '{field}' wajib diisi"
                 }), 400
         fitur = pd.DataFrame([{
-            "Pregnancies": int(float(data["pregnancies"])),  # handle "4.0" → 4
+            "Pregnancies": int(float(data["pregnancies"])),
             "Glucose": float(data["glucose"]),
             "BloodPressure": float(data["bloodpressure"]),
             "SkinThickness": float(data["skinThickness"]),
