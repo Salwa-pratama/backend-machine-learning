@@ -24,7 +24,7 @@ except Exception as e:
 def test_xgb():
     return jsonify({
         "kode": 200,
-        "status": "hadir",
+        "status": "Siap untuk memprediksi masa depan mu broo",
         "message": "Koneksi API XGBoost Berhasil"
     })
 
@@ -34,7 +34,6 @@ def predict_xgb():  # ✅ Nama fungsi disesuaikan
     try:
         data = request.json
 
-        # ✅ Validasi: pastikan semua field ada
         required_fields = [
             "pregnancies", "glucose", "bloodpressure", "skinThickness",
             "insulin", "bmi", "diabetespedigreefunction", "age"
