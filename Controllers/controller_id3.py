@@ -28,12 +28,10 @@ except Exception as e:
     raise Exception(f"Gagal load model NB: {e}")
 
 
-
 @id3_route.route("/predict-id3", methods=["POST"])
 def predict_id3():
     try:
         data = request.json
-
         # fitur sesuai urutan training ID3 kamu
         fitur = pd.DataFrame([{
             "fixed acidity": data["fixed_acidity"],
